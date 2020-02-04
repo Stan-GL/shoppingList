@@ -1,4 +1,4 @@
-package com.javaguru.shoppinglist.database;
+package com.javaguru.shoppinglist.domain;
 
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -19,7 +19,7 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Product{" +
+        return "Product{ " +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", price=" + price +
@@ -53,6 +53,10 @@ public class Product {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public BigDecimal getDiscount() {
+        return discount;
     }
 
     public Long getId() {
