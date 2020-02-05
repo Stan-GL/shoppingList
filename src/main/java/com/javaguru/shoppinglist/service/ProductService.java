@@ -6,7 +6,6 @@ import com.javaguru.shoppinglist.service.validation.ProductDiscountValidation;
 import com.javaguru.shoppinglist.service.validation.ProductNameValidation;
 import com.javaguru.shoppinglist.service.validation.ProductPriceValidation;
 
-import java.math.BigDecimal;
 
 public class ProductService {
 
@@ -18,19 +17,22 @@ public class ProductService {
         lastAddedProductID = product.getId();
     }
 
-    public void validateProductName(String name) {
+    public void validateProductName(Product product) {
         ProductNameValidation nameValidation = new ProductNameValidation();
-        nameValidation.validate(name);
+        nameValidation.validate(product);
+        if (!repository.findByName(product.getName())) {
+            throw new IllegalArgumentException("Product already exists, choose another name.");
+        }
     }
 
-    public void validateProductPrice(BigDecimal price) {
+    public void validateProductPrice(Product product) {
         ProductPriceValidation priceValidation = new ProductPriceValidation();
-        priceValidation.validate(price);
+        priceValidation.validate(product);
     }
 
-    public void validateProductDiscount(BigDecimal discount) {
+    public void validateProductDiscount(Product product) {
         ProductDiscountValidation discountValidation = new ProductDiscountValidation();
-        discountValidation.validate(discount);
+        discountValidation.validate(product);
     }
 
     public Product findByID(Long productID) {

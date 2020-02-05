@@ -1,5 +1,6 @@
 package com.javaguru.shoppinglist.repository;
 
+import com.javaguru.shoppinglist.domain.Product;
 import com.javaguru.shoppinglist.service.validation.ProductNameValidation;
 import org.junit.Test;
 
@@ -9,9 +10,10 @@ public class ProductNameValidationTest {
 
     @Test
     public void test1() {
-        String name = "qwertyuiopasdfghjklzxcvbnmqwerty";
+        Product product = new Product();
+        product.setName("qwertyuiopasdfghjklzxcvbnmqwerty");
         ProductNameValidation rule = new ProductNameValidation();
-        boolean result = rule.validate(name);
+        boolean result = rule.validate(product);
         assertEquals(true, result);
 
     }

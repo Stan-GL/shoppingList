@@ -3,7 +3,6 @@ package com.javaguru.shoppinglist.console;
 import com.javaguru.shoppinglist.domain.Product;
 import com.javaguru.shoppinglist.service.ProductService;
 
-import java.math.BigDecimal;
 import java.util.Scanner;
 
 public class ConsoleUI {
@@ -21,8 +20,7 @@ public class ConsoleUI {
                 switch (userInput) {
                     case 1:
                         try {
-                            productService.insertProduct(createProduct());
-                            System.out.println("Result: product was added, ID: " + productService.getLastAddedProductID());
+                            createProduct();
                             break;
                         } catch (Exception e) {
                             System.out.println(e.getMessage());
@@ -30,7 +28,7 @@ public class ConsoleUI {
                         }
                     case 2:
                         try {
-                            System.out.println(productService.findByID(catchProductID()));
+                            findProduct();
                             break;
                         } catch (Exception e) {
                             System.out.println("Product does not exist.");
@@ -45,43 +43,44 @@ public class ConsoleUI {
         }
     }
 
-    public Long catchProductID() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter product ID [digits only]: ");
-        long id = scanner.nextLong();
-        productService.findByID(id);
-        return id;
-    }
-
-    public String catchProductName() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter product name [3-32 symbols]: ");
-        String name = scanner.nextLine();
-        productService.validateProductName(name);
-        return name;
-    }
-
-    public BigDecimal catchProductPrice() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter product price: ");
-        BigDecimal price = scanner.nextBigDecimal();
-        productService.validateProductPrice(price);
-        return price;
-    }
-
-    public BigDecimal catchProductDiscount() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter product discount [%]: ");
-        BigDecimal discount = scanner.nextBigDecimal();
-        productService.validateProductDiscount(discount);
-        return discount;
-    }
-
-    public Product createProduct() {
+    private Product collectProductProperties() {
         Product product = new Product();
-        product.setName(catchProductName());
-        product.setPrice(catchProductPrice());
-        product.setDiscount(catchProductDiscount());
+        collectProductName(product);
+        collectProductPrice(product);
+        collectProductDiscount(product);
         return product;
     }
+
+    private void createProduct() {
+        productService.insertProduct(collectProductProperties());
+        System.out.println("Result: product was added, ID: " + productService.getLastAddedProductID());
+    }
+
+    private Product findProduct() {
+        Product product = new Product();
+        CatchProductID id = new CatchProductID();
+        id.catchUserInput(product);
+        Product result = productService.findByID(product.getId());
+        System.out.println("Search result: " + result);
+        return result;
+    }
+
+    private void collectProductPrice(Product product) {
+        CatchProductPrice price = new CatchProductPrice();
+        price.catchUserInput(product);
+        productService.validateProductPrice(product);
+    }
+
+    private void collectProductName(Product product) {
+        CatchProductName name = new CatchProductName();
+        name.catchUserInput(product);
+        productService.validateProductName(product);
+    }
+
+    private void collectProductDiscount(Product product) {
+        CatchProductDiscount discount = new CatchProductDiscount();
+        discount.catchUserInput(product);
+        productService.validateProductDiscount(product);
+    }
+
 }

@@ -24,4 +24,14 @@ public class ProductRepository {
             return productRepository.get(productID);
         }
     }
+
+    public boolean findByName(String name) {
+        for (Map.Entry<Long, Product> entry : productRepository.entrySet()) {
+            if (entry.getValue().getName().equals(name)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 }
