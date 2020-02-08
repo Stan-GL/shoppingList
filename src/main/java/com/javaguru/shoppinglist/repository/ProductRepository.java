@@ -1,6 +1,7 @@
 package com.javaguru.shoppinglist.repository;
 
 import com.javaguru.shoppinglist.domain.Product;
+import com.javaguru.shoppinglist.domain.ShoppingCart;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,29 +10,38 @@ public class ProductRepository {
 
     private Map<Long, Product> productRepository = new HashMap<>();
     private Long productIdSequence = 0L;
+    private Map<Long, ShoppingCart> shoppingCartRepository = new HashMap<>();
+    private Long cartIdSequence = 0L;
 
-    public Product insert(Product product) {
+    public void insertProduct(Product product) {
         product.setId(productIdSequence);
         productRepository.put(productIdSequence, product);
         productIdSequence++;
-        return product;
     }
 
-    public Product findByID(Long productID) {
-        if (!productRepository.containsKey(productID)) {
-            throw new NullPointerException();
-        } else {
-            return productRepository.get(productID);
-        }
+    public void insertShoppingCart(ShoppingCart cart) {
+        cart.setId(cartIdSequence);
+        shoppingCartRepository.put(cartIdSequence, cart);
+        cartIdSequence++;
     }
 
-    public boolean findByName(String name) {
-        for (Map.Entry<Long, Product> entry : productRepository.entrySet()) {
-            if (entry.getValue().getName().equals(name)) {
-                return false;
-            }
-        }
-        return true;
+    public ShoppingCart findShoppingCart(Long cartID) {
+        return shoppingCartRepository.get(cartID);
     }
 
+    public void deleteShoppingCart(ShoppingCart cart) {
+        shoppingCartRepository.remove(cart.getId());
+    }
+
+    public Product findProductByID(Long productID) {
+        return productRepository.get(productID);
+    }
+
+    public Map<Long, Product> getProductRepository() {
+        return productRepository;
+    }
+
+    public Map<Long, ShoppingCart> getShoppingCartRepository() {
+        return shoppingCartRepository;
+    }
 }
