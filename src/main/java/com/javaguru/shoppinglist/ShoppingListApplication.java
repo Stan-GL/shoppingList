@@ -1,12 +1,13 @@
 package com.javaguru.shoppinglist;
 
-import com.javaguru.shoppinglist.console.ConsoleUI;
+import com.javaguru.shoppinglist.console.UIMenu;
 
 class ShoppingListApplication {
 
     public static void main(String[] args) {
 
-        ConsoleUI console = new ConsoleUI();
-        console.run();
+        DependencyInjectionHelper helper = new DependencyInjectionHelper();
+        UIMenu uiMenu = helper.createApplication();
+        uiMenu.run();
     }
 }

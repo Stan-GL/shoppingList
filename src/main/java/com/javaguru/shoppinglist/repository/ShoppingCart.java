@@ -1,16 +1,19 @@
-package com.javaguru.shoppinglist.domain;
+package com.javaguru.shoppinglist.repository;
+
+import com.javaguru.shoppinglist.domain.Product;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class ShoppingCart {
+public class ShoppingCart implements CRUD {
 
     private Long id;
     private String name;
     private Map<Long, Product> productList = new HashMap<>();
 
-    public void insert(Product product) {
+    @Override
+    public void insertProduct(Product product) {
         productList.put(product.getId(), product);
     }
 
@@ -56,5 +59,27 @@ public class ShoppingCart {
                 ", name='" + name + '\'' +
                 ", productList=" + productList +
                 '}';
+    }
+
+    @Override
+    public Product getProductByID(Product object) {
+        return null;
+    }
+
+    @Override
+    public void deleteProductByID(Product object) {
+    }
+
+    @Override
+    public void insertShoppingCart(ShoppingCart cart) {
+    }
+
+    @Override
+    public ShoppingCart getShoppingCartByID(ShoppingCart cart) {
+        return null;
+    }
+
+    @Override
+    public void deleteShoppingCartByID(ShoppingCart cart) {
     }
 }
