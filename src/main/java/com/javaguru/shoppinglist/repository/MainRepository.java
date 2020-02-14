@@ -18,16 +18,16 @@ public class MainRepository implements CRUD {
 
     @Override
     public void insertProduct(Product product) {
+        productIdSequence++;
         product.setId(productIdSequence);
         productRepository.put(productIdSequence, product);
-        productIdSequence++;
     }
 
     @Override
     public void insertShoppingCart(ShoppingCart cart) {
+        cartIdSequence++;
         cart.setId(cartIdSequence);
         shoppingCartRepository.put(cartIdSequence, cart);
-        cartIdSequence++;
     }
 
     @Override
@@ -48,6 +48,16 @@ public class MainRepository implements CRUD {
     @Override
     public void deleteShoppingCartByID(ShoppingCart cart) {
         shoppingCartRepository.remove(cart.getId());
+    }
+
+    @Override
+    public Long getProductIdSequence() {
+        return productIdSequence;
+    }
+
+    @Override
+    public Long getCartIdSequence() {
+        return cartIdSequence;
     }
 
 }

@@ -10,7 +10,6 @@ import java.util.Map;
 public class ShoppingCartService implements RepositoryItemService<ShoppingCart> {
 
     private CRUD mainRepository;
-    private Long lastAddedShoppingCartID = 0L;
 
     public ShoppingCartService(CRUD repository) {
         this.mainRepository = repository;
@@ -19,7 +18,6 @@ public class ShoppingCartService implements RepositoryItemService<ShoppingCart> 
     @Override
     public void insertItem(ShoppingCart cart) {
         mainRepository.insertShoppingCart(cart);
-        lastAddedShoppingCartID = cart.getId();
     }
 
     @Override
@@ -39,7 +37,7 @@ public class ShoppingCartService implements RepositoryItemService<ShoppingCart> 
 
     @Override
     public Long getLastAddedItemID() {
-        return lastAddedShoppingCartID;
+        return mainRepository.getCartIdSequence();
     }
 
     @Override

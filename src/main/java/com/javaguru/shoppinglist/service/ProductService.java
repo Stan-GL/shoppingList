@@ -11,7 +11,6 @@ import java.util.Map;
 public class ProductService implements RepositoryItemService<Product> {
 
     private CRUD mainRepository;
-    private Long lastAddedProductID = 0L;
 
     public ProductService(CRUD mainRepository) {
         this.mainRepository = mainRepository;
@@ -20,7 +19,6 @@ public class ProductService implements RepositoryItemService<Product> {
     @Override
     public void insertItem(Product product) {
         mainRepository.insertProduct(product);
-        lastAddedProductID = product.getId();
     }
 
     @Override
@@ -34,7 +32,7 @@ public class ProductService implements RepositoryItemService<Product> {
     }
 
     public Long getLastAddedItemID() {
-        return lastAddedProductID;
+        return mainRepository.getProductIdSequence();
     }
 
     public void addProductInCart(Product product, ShoppingCart cart) {

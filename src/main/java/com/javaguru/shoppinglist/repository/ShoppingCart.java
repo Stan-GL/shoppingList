@@ -82,4 +82,14 @@ public class ShoppingCart implements CRUD {
     @Override
     public void deleteShoppingCartByID(ShoppingCart cart) {
     }
+
+    @Override
+    public Long getProductIdSequence() {
+        return null;
+    }
+
+    @Override
+    public Long getCartIdSequence() {
+        return null;
+    }
 }

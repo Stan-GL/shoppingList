@@ -16,4 +16,10 @@ public interface CRUD {
 
     void deleteShoppingCartByID(ShoppingCart cart);
 
+    Long getProductIdSequence();
+
+    Long getCartIdSequence();
+
 }
+
+

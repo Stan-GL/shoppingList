@@ -41,6 +41,27 @@ public class ProductNameValidationRuleTest {
     }
 
     @Test
+    public void test2NegativeProductNameValidationRule() {
+        product.setName("");
+        Boolean result = victim.validate(product);
+        assertEquals(false, result);
+    }
+
+    @Test
+    public void test3NegativeProductNameValidationRule() {
+        product.setName("as");
+        Boolean result = victim.validate(product);
+        assertEquals(false, result);
+    }
+
+    @Test
+    public void test4NegativeProductNameValidationRule() {
+        product.setName("123456789012345678901234567890123");
+        Boolean result = victim.validate(product);
+        assertEquals(false, result);
+    }
+
+    @Test
     public void testPositiveProductNameValidationRule() {
         product.setName("  e  r   t ");
         Boolean result = victim.validate(product);
