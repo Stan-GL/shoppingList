@@ -2,8 +2,9 @@ package com.javaguru.shoppinglist.domain;
 
 public enum Category {
 
-    fruits,
-    vegetables,
-    meat,
-    fish,
+    FRUITS,
+    VEGETABLES,
+    MEAT,
+    FISH,
+
 }
