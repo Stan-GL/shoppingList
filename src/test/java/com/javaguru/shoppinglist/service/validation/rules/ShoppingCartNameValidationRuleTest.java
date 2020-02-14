@@ -18,6 +18,13 @@ public class ShoppingCartNameValidationRuleTest {
     }
 
     @Test
+    public void test2NegativeShoppingCartNameValidationRule() {
+        cart.setName("");
+        Boolean result = victim.validate(cart);
+        assertEquals(false, result);
+    }
+
+    @Test
     public void testNPositiveShoppingCartNameValidationRule() {
         cart.setName("  1");
         Boolean result = victim.validate(cart);
