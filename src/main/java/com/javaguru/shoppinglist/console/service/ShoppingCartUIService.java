@@ -7,16 +7,18 @@ import com.javaguru.shoppinglist.domain.Product;
 import com.javaguru.shoppinglist.repository.ShoppingCart;
 import com.javaguru.shoppinglist.service.RepositoryItemService;
 import com.javaguru.shoppinglist.service.validation.ValidationService;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.Map;
 
+@Component
 public class ShoppingCartUIService implements UIService<ShoppingCart> {
 
+    private final RepositoryItemService<ShoppingCart> shoppingCartService;
+    private final ValidationService<ShoppingCart> shoppingCartValidationRules;
 
-    private RepositoryItemService<ShoppingCart> shoppingCartService;
-    private ValidationService<ShoppingCart> shoppingCartValidationRules;
-
+    //    @Autowired
     public ShoppingCartUIService(RepositoryItemService<ShoppingCart> shoppingCartService,
                                  ValidationService<ShoppingCart> shoppingCartValidationRules) {
 
@@ -25,8 +27,10 @@ public class ShoppingCartUIService implements UIService<ShoppingCart> {
     }
 
     @Override
-    public void insert() throws ExitException {
-        shoppingCartService.insertItem(create());
+    public ShoppingCart insert() throws ExitException {
+        ShoppingCart cart = create();
+        shoppingCartService.insertItem(cart);
+        return cart;
     }
 
     @Override

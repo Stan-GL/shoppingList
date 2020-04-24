@@ -2,19 +2,27 @@ package com.javaguru.shoppinglist.repository;
 
 import com.javaguru.shoppinglist.domain.Product;
 
+import javax.persistence.*;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
+//@Entity
+@Table(name = "shopping_carts")
 public class ShoppingCart implements CRUD {
 
+    @Id
+    @Column(name = "cart_id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @Column(name = "name")
     private String name;
-    private Map<Long, Product> productList = new HashMap<>();
+
+    private HashMap<Long, Product> productList = new HashMap<>();
 
     @Override
     public void insertProduct(Product product) {
-        productList.put(product.getId(), product);
+        productList.put(product.getProductId(), product);
     }
 
     public String getName() {
@@ -25,7 +33,7 @@ public class ShoppingCart implements CRUD {
         this.name = name;
     }
 
-    public Map<Long, Product> getProductList() {
+    public HashMap<Long, Product> getProductList() {
         return productList;
     }
 
@@ -67,6 +75,11 @@ public class ShoppingCart implements CRUD {
     }
 
     @Override
+    public boolean ifProductExistsByName(Product product) {
+        return false;
+    }
+
+    @Override
     public void deleteProductByID(Product object) {
     }
 
@@ -90,6 +103,11 @@ public class ShoppingCart implements CRUD {
 
     @Override
     public Long getCartIdSequence() {
+        return null;
+    }
+
+    @Override
+    public HashMap getProductRepository() {
         return null;
     }
 }

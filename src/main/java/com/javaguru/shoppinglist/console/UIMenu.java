@@ -5,17 +5,21 @@ import com.javaguru.shoppinglist.console.service.UIService;
 import com.javaguru.shoppinglist.domain.Product;
 import com.javaguru.shoppinglist.repository.ShoppingCart;
 import com.javaguru.shoppinglist.service.RepositoryItemService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.Scanner;
 
+@Component
 public class UIMenu {
 
-    private RepositoryItemService<Product> productService;
-    private RepositoryItemService<ShoppingCart> shoppingCartService;
-    private UIService<Product> productUIService;
-    private UIService<ShoppingCart> shoppingCartUIService;
+    private final RepositoryItemService<Product> productService;
+    private final RepositoryItemService<ShoppingCart> shoppingCartService;
+    private final UIService<Product> productUIService;
+    private final UIService<ShoppingCart> shoppingCartUIService;
 
+    @Autowired
     public UIMenu(RepositoryItemService<Product> productService, RepositoryItemService<ShoppingCart> shoppingCartService,
                   UIService<Product> productUIService, UIService<ShoppingCart> shoppingCartUIService) {
 
@@ -75,7 +79,8 @@ public class UIMenu {
                         return;
                 }
             } catch (Exception e) {
-                System.out.println("Wrong value!");
+                System.out.println(e.getMessage());
+//                System.out.println("Wrong value!");
             }
         }
     }
@@ -90,9 +95,7 @@ public class UIMenu {
 
     private void createProductInRepository() {
         try {
-            productUIService.insert();
-            Long id = productService.getLastAddedItemID();
-            System.out.println("Product created with ID: " + id);
+            System.out.println("New product was successfully added with ID = " + productUIService.insert().getProductId());
         } catch (ExitException e) {
             System.out.println(e.getMessage());
         }

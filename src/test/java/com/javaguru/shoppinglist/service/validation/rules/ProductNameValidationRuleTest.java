@@ -1,69 +1,69 @@
 package com.javaguru.shoppinglist.service.validation.rules;
 
 import com.javaguru.shoppinglist.domain.Product;
+import com.javaguru.shoppinglist.repository.CRUD;
+import com.javaguru.shoppinglist.repository.InMemoryRepository;
 import org.junit.Test;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
 public class ProductNameValidationRuleTest {
 
-    private Map<Long, Product> productRepository = new HashMap<>();
-    private ProductNameValidationRule victim = new ProductNameValidationRule(productRepository);
+    private CRUD mainRepository = new InMemoryRepository();
+
+    private ProductNameValidationRule victim = new ProductNameValidationRule(mainRepository);
     private Product product = new Product();
     private Product apple = new Product();
 
     @Test
     public void testNegativeProductNameExclusiveness() {
-        apple.setName("apple");
-        product.setName("apple");
-        productRepository.put(0L, apple);
+        apple.setProductName("apple");
+        product.setProductName("apple");
+        mainRepository.getProductRepository().put(0L, apple);
         Boolean result = victim.validate(product);
         assertEquals(false, result);
     }
 
     @Test
     public void testPositiveProductNameExclusiveness() {
-        apple.setName("apple");
-        product.setName("orange");
-        productRepository.put(0L, apple);
+        apple.setProductName("apple");
+        product.setProductName("orange");
+        mainRepository.getProductRepository().put(0L, apple);
         Boolean result = victim.validate(product);
         assertEquals(true, result);
     }
 
     @Test
     public void testNegativeProductNameValidationRule() {
-        product.setName("   e   r  ");
+        product.setProductName("   e   r  ");
         Boolean result = victim.validate(product);
         assertEquals(false, result);
     }
 
     @Test
     public void test2NegativeProductNameValidationRule() {
-        product.setName("");
+        product.setProductName("");
         Boolean result = victim.validate(product);
         assertEquals(false, result);
     }
 
     @Test
     public void test3NegativeProductNameValidationRule() {
-        product.setName("as");
+        product.setProductName("as");
         Boolean result = victim.validate(product);
         assertEquals(false, result);
     }
 
     @Test
     public void test4NegativeProductNameValidationRule() {
-        product.setName("123456789012345678901234567890123");
+        product.setProductName("123456789012345678901234567890123");
         Boolean result = victim.validate(product);
         assertEquals(false, result);
     }
 
     @Test
     public void testPositiveProductNameValidationRule() {
-        product.setName("  e  r   t ");
+        product.setProductName("  e  r   t ");
         Boolean result = victim.validate(product);
         assertEquals(true, result);
     }

@@ -1,25 +1,25 @@
 package com.javaguru.shoppinglist.repository;
 
 import com.javaguru.shoppinglist.domain.Product;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
 import java.util.Map;
 
-public class MainRepository implements CRUD {
+@Component
+@Profile("inmemory")
+public class InMemoryRepository implements CRUD {
 
-    private Map<Long, Product> productRepository;
+    private final HashMap<Long, Product> productRepository = new HashMap<>();
     private Long productIdSequence = 0L;
-    private Map<Long, ShoppingCart> shoppingCartRepository;
+    private final Map<Long, ShoppingCart> shoppingCartRepository = new HashMap<>();
     private Long cartIdSequence = 0L;
-
-    public MainRepository(Map<Long, Product> productRepository, Map<Long, ShoppingCart> shoppingCartRepository) {
-        this.productRepository = productRepository;
-        this.shoppingCartRepository = shoppingCartRepository;
-    }
 
     @Override
     public void insertProduct(Product product) {
         productIdSequence++;
-        product.setId(productIdSequence);
+        product.setProductId(productIdSequence);
         productRepository.put(productIdSequence, product);
     }
 
@@ -32,7 +32,12 @@ public class MainRepository implements CRUD {
 
     @Override
     public Product getProductByID(Product product) {
-        return productRepository.get(product.getId());
+        return productRepository.get(product.getProductId());
+    }
+
+    @Override
+    public boolean ifProductExistsByName(Product product) {
+        return false;
     }
 
     @Override
@@ -42,7 +47,7 @@ public class MainRepository implements CRUD {
 
     @Override
     public void deleteProductByID(Product product) {
-        productRepository.remove(product.getId());
+        productRepository.remove(product.getProductId());
     }
 
     @Override
@@ -60,4 +65,8 @@ public class MainRepository implements CRUD {
         return cartIdSequence;
     }
 
+    @Override
+    public HashMap<Long, Product> getProductRepository() {
+        return productRepository;
+    }
 }

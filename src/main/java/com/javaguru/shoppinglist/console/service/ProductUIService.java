@@ -5,16 +5,19 @@ import com.javaguru.shoppinglist.domain.Product;
 import com.javaguru.shoppinglist.repository.ShoppingCart;
 import com.javaguru.shoppinglist.service.RepositoryItemService;
 import com.javaguru.shoppinglist.service.validation.ValidationService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.Map;
 
+@Component
 public class ProductUIService implements UIService<Product> {
 
+    private final RepositoryItemService<Product> productService;
+    private final ValidationService<Product> productValidationRules;
 
-    private RepositoryItemService<Product> productService;
-    private ValidationService<Product> productValidationRules;
-
+    @Autowired
     public ProductUIService(RepositoryItemService<Product> productService,
                             ValidationService<Product> productValidationRules) {
 
@@ -23,8 +26,10 @@ public class ProductUIService implements UIService<Product> {
     }
 
     @Override
-    public void insert() throws ExitException {
-        productService.insertItem(create());
+    public Product insert() throws ExitException {
+        Product product = create();
+        productService.insertItem(product);
+        return product;
     }
 
     @Override

@@ -3,15 +3,19 @@ package com.javaguru.shoppinglist.service;
 import com.javaguru.shoppinglist.domain.Product;
 import com.javaguru.shoppinglist.repository.CRUD;
 import com.javaguru.shoppinglist.repository.ShoppingCart;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.Map;
 
 
+@Component
 public class ProductService implements RepositoryItemService<Product> {
 
-    private CRUD mainRepository;
+    private final CRUD mainRepository;
 
+    @Autowired
     public ProductService(CRUD mainRepository) {
         this.mainRepository = mainRepository;
     }

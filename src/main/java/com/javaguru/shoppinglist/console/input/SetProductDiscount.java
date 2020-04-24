@@ -10,7 +10,7 @@ public class SetProductDiscount implements CatchUserInput {
         System.out.println("Enter product discount [%]: ");
         String command = catchUserInput();
         try {
-            product.setDiscount(new BigDecimal(command));
+            product.setProductDiscount(new BigDecimal(command));
         } catch (Exception e) {
             System.out.println("Wrong input format, use only digits");
         }

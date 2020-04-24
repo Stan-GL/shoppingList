@@ -9,7 +9,7 @@ import java.util.Map;
 
 public interface UIService<T> {
 
-    void insert() throws ExitException;
+    T insert() throws ExitException;
 
     T create() throws ExitException;
 

@@ -1,7 +1,9 @@
 package com.javaguru.shoppinglist.service.validation.rules;
 
 import com.javaguru.shoppinglist.repository.ShoppingCart;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ShoppingCartNameValidationRule implements ValidationRules<ShoppingCart> {
 
     public boolean validate(ShoppingCart cart) {
