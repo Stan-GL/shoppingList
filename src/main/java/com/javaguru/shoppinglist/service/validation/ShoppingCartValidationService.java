@@ -1,6 +1,6 @@
 package com.javaguru.shoppinglist.service.validation;
 
-import com.javaguru.shoppinglist.repository.ShoppingCart;
+import com.javaguru.shoppinglist.domain.ShoppingCart;
 import com.javaguru.shoppinglist.service.validation.rules.ShoppingCartNameValidationRule;
 import org.springframework.stereotype.Component;
 

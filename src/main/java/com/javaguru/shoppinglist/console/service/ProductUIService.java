@@ -2,14 +2,14 @@ package com.javaguru.shoppinglist.console.service;
 
 import com.javaguru.shoppinglist.console.input.*;
 import com.javaguru.shoppinglist.domain.Product;
-import com.javaguru.shoppinglist.repository.ShoppingCart;
+import com.javaguru.shoppinglist.domain.ShoppingCart;
 import com.javaguru.shoppinglist.service.RepositoryItemService;
 import com.javaguru.shoppinglist.service.validation.ValidationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
-import java.util.Map;
+import java.util.List;
 
 @Component
 public class ProductUIService implements UIService<Product> {
@@ -92,7 +92,7 @@ public class ProductUIService implements UIService<Product> {
     }
 
     @Override
-    public Map getProductList(ShoppingCart cart) throws ExitException {
+    public List<Product> getProductList(ShoppingCart cart) throws ExitException {
         return null;
     }
 

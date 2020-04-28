@@ -1,6 +1,6 @@
 package com.javaguru.shoppinglist.console.input;
 
-import com.javaguru.shoppinglist.repository.ShoppingCart;
+import com.javaguru.shoppinglist.domain.ShoppingCart;
 
 public class SetShoppingCartID implements CatchUserInput {
 
@@ -8,7 +8,7 @@ public class SetShoppingCartID implements CatchUserInput {
         System.out.println("Enter cart ID [digits only]: ");
         String command = catchUserInput();
         try {
-            cart.setId(Long.valueOf(command));
+            cart.setCartId(Long.valueOf(command));
         } catch (Exception e) {
             System.out.println("Wrong input format, use only digits!");
             return null;

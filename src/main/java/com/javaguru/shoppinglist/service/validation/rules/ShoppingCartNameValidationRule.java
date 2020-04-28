@@ -1,6 +1,6 @@
 package com.javaguru.shoppinglist.service.validation.rules;
 
-import com.javaguru.shoppinglist.repository.ShoppingCart;
+import com.javaguru.shoppinglist.domain.ShoppingCart;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -8,7 +8,7 @@ public class ShoppingCartNameValidationRule implements ValidationRules<ShoppingC
 
     public boolean validate(ShoppingCart cart) {
         checkNotNull(cart);
-        int name = cart.getName().replaceAll(" ", "").length();
+        int name = cart.getCartName().replaceAll(" ", "").length();
         if (name == 0) {
             System.out.println("Cart name cannot be null!");
             return false;

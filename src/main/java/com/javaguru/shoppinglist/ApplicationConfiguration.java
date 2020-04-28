@@ -1,7 +1,6 @@
 package com.javaguru.shoppinglist;
 
 import org.apache.commons.dbcp.BasicDataSource;
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -9,13 +8,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.orm.hibernate5.HibernateTransactionManager;
-import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
-import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.sql.DataSource;
-import java.io.IOException;
-import java.util.Properties;
 
 @Configuration
 @ComponentScan(basePackages = "com.javaguru.shoppinglist")
@@ -40,35 +34,35 @@ public class ApplicationConfiguration {
         return dataSource;
     }
 
-    @Bean
-    public Properties hibernateProperties(@Value("${hibernate.dialect}") String dialect,
-                                          @Value("${hibernate.show_sql}") boolean showSql,
-                                          @Value("${hibernate.format_sql}") boolean formatSql,
-                                          @Value("${hibernate.hbm2ddl.auto}") String hbm2ddl) {
-        Properties properties = new Properties();
-        properties.put("hibernate.dialect", dialect);
-        properties.put("hibernate.show_sql", showSql);
-        properties.put("hibernate.format_sql", formatSql);
-        properties.put("hibernate.hbm2ddl.auto", hbm2ddl);
-        return properties;
-    }
-
-    @Bean
-    public SessionFactory sessionFactory(DataSource dataSource,
-                                         @Value("${hibernate.package_to_scan}") String packageToScan,
-                                         Properties hibernateProperties) throws IOException {
-        LocalSessionFactoryBean localSessionFactoryBean = new LocalSessionFactoryBean();
-        localSessionFactoryBean.setDataSource(dataSource);
-        localSessionFactoryBean.setPackagesToScan(packageToScan);
-        localSessionFactoryBean.setHibernateProperties(hibernateProperties);
-        localSessionFactoryBean.afterPropertiesSet();
-        return localSessionFactoryBean.getObject();
-    }
-
-    @Bean
-    public PlatformTransactionManager transactionManager(SessionFactory sessionFactory) {
-        return new HibernateTransactionManager(sessionFactory);
-    }
+//    @Bean
+//    public Properties hibernateProperties(@Value("${hibernate.dialect}") String dialect,
+//                                          @Value("${hibernate.show_sql}") boolean showSql,
+//                                          @Value("${hibernate.format_sql}") boolean formatSql,
+//                                          @Value("${hibernate.hbm2ddl.auto}") String hbm2ddl) {
+//        Properties properties = new Properties();
+//        properties.put("hibernate.dialect", dialect);
+//        properties.put("hibernate.show_sql", showSql);
+//        properties.put("hibernate.format_sql", formatSql);
+//        properties.put("hibernate.hbm2ddl.auto", hbm2ddl);
+//        return properties;
+//    }
+//
+//    @Bean
+//    public SessionFactory sessionFactory(DataSource dataSource,
+//                                         @Value("${hibernate.package_to_scan}") String packageToScan,
+//                                         Properties hibernateProperties) throws IOException {
+//        LocalSessionFactoryBean localSessionFactoryBean = new LocalSessionFactoryBean();
+//        localSessionFactoryBean.setDataSource(dataSource);
+//        localSessionFactoryBean.setPackagesToScan(packageToScan);
+//        localSessionFactoryBean.setHibernateProperties(hibernateProperties);
+//        localSessionFactoryBean.afterPropertiesSet();
+//        return localSessionFactoryBean.getObject();
+//    }
+//
+//    @Bean
+//    public PlatformTransactionManager transactionManager(SessionFactory sessionFactory) {
+//        return new HibernateTransactionManager(sessionFactory);
+//    }
 
     @Bean
     public JdbcTemplate jdbcTemplate(DataSource dataSource) {

@@ -1,13 +1,13 @@
 package com.javaguru.shoppinglist.service;
 
 import com.javaguru.shoppinglist.domain.Product;
+import com.javaguru.shoppinglist.domain.ShoppingCart;
 import com.javaguru.shoppinglist.repository.CRUD;
-import com.javaguru.shoppinglist.repository.ShoppingCart;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
-import java.util.Map;
+import java.util.List;
 
 @Component
 public class ShoppingCartService implements RepositoryItemService<ShoppingCart> {
@@ -34,9 +34,13 @@ public class ShoppingCartService implements RepositoryItemService<ShoppingCart> 
         mainRepository.deleteShoppingCartByID(cart);
     }
 
+    //    @Override
+//    public void addProductInCart(Product product, ShoppingCart cart) {    //вариант для работы с инмемори
+//        mainRepository.getShoppingCartByID(cart).insertProduct(product);
+//    }
     @Override
-    public void addProductInCart(Product product, ShoppingCart cart) {
-        mainRepository.getShoppingCartByID(cart).insertProduct(product);
+    public void addProduct(Product product, ShoppingCart cart) {  //вариант для работы с внешней базой
+        mainRepository.addProductToCart(product, cart);
     }
 
     @Override
@@ -44,17 +48,35 @@ public class ShoppingCartService implements RepositoryItemService<ShoppingCart> 
         return mainRepository.getCartIdSequence();
     }
 
+    //    @Override
+//    public Map getShoppingCartProductList(ShoppingCart cart) {   //вариант для работы с инмемори
+//        return mainRepository.getShoppingCartByID(cart).getProductList();
+//    }
     @Override
-    public Map getShoppingCartProductList(ShoppingCart cart) {
-        return mainRepository.getShoppingCartByID(cart).getProductList();
+    public List<Product> getShoppingCartProductList(ShoppingCart cart) {  //вариант для работы с внешней базой
+        return mainRepository.getShoppingCartProductList(cart);
     }
 
+//    @Override
+//    public BigDecimal getShoppingCartTotalValue(ShoppingCart cart) {  // вариант для работы с инмемори
+//        BigDecimal price = new BigDecimal("0");
+//        for (Map.Entry<Long, Product> entry : cart.getProductList().entrySet()) {
+//            price = price.add(entry.getValue().getProductPrice());
+//        }
+//        return price;
+//    }
+
     @Override
-    public BigDecimal getShoppingCartTotalValue(ShoppingCart cart) {
-        BigDecimal price = new BigDecimal("0");
-        for (Map.Entry<Long, Product> entry : cart.getProductList().entrySet()) {
-            price = price.add(entry.getValue().getProductPrice());
+    public BigDecimal getShoppingCartTotalValue(ShoppingCart cart) {  //вариант для работы с внешней базой
+        BigDecimal value = new BigDecimal("0");
+        List<Product> productList = getShoppingCartProductList(cart);
+        if (productList == null) {
+            return value;
         }
-        return price;
+        int i;
+        for (i = 0; i <= (productList.size() - 1); i++) {
+            value = value.add(productList.get(i).getProductPrice());
+        }
+        return value;
     }
 }

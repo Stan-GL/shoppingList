@@ -1,10 +1,12 @@
 package com.javaguru.shoppinglist.repository;
 
 import com.javaguru.shoppinglist.domain.Product;
+import com.javaguru.shoppinglist.domain.ShoppingCart;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Component
@@ -17,16 +19,21 @@ public class InMemoryRepository implements CRUD {
     private Long cartIdSequence = 0L;
 
     @Override
-    public void insertProduct(Product product) {
+    public void insertProductInRepository(Product product) {
         productIdSequence++;
         product.setProductId(productIdSequence);
         productRepository.put(productIdSequence, product);
     }
 
     @Override
+    public void addProductToCart(Product product, ShoppingCart cart) {
+
+    }
+
+    @Override
     public void insertShoppingCart(ShoppingCart cart) {
         cartIdSequence++;
-        cart.setId(cartIdSequence);
+        cart.setCartId(cartIdSequence);
         shoppingCartRepository.put(cartIdSequence, cart);
     }
 
@@ -42,7 +49,7 @@ public class InMemoryRepository implements CRUD {
 
     @Override
     public ShoppingCart getShoppingCartByID(ShoppingCart cart) {
-        return shoppingCartRepository.get(cart.getId());
+        return shoppingCartRepository.get(cart.getCartId());
     }
 
     @Override
@@ -52,7 +59,7 @@ public class InMemoryRepository implements CRUD {
 
     @Override
     public void deleteShoppingCartByID(ShoppingCart cart) {
-        shoppingCartRepository.remove(cart.getId());
+        shoppingCartRepository.remove(cart.getCartId());
     }
 
     @Override
@@ -63,6 +70,11 @@ public class InMemoryRepository implements CRUD {
     @Override
     public Long getCartIdSequence() {
         return cartIdSequence;
+    }
+
+    @Override
+    public List<Product> getShoppingCartProductList(ShoppingCart cart) {
+        return null;
     }
 
     @Override

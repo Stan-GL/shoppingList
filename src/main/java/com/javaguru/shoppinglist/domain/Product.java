@@ -3,6 +3,7 @@ package com.javaguru.shoppinglist.domain;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "products")
@@ -27,7 +28,15 @@ public class Product {
     private String productDescription;
 
     @Column(name = "product_category")
-    private Category productCategory;
+    private int productCategory;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id")
+    private Set<ShoppingCartProductList> productLists;
+
+    public Set<ShoppingCartProductList> getProductLists() {
+        return productLists;
+    }
 
     public void setProductDiscount(BigDecimal discount) {
         this.productDiscount = discount;
@@ -67,9 +76,9 @@ public class Product {
         return Objects.hash(productId, productName, productPrice, productDiscount, productDescription, productCategory);
     }
 
-    public void setProductCategory(Category category) {
-        this.productCategory = category;
-    }
+//    public void setProductCategory(Category category) {
+//        this.productCategory = category;
+//    }
 
     public BigDecimal getProductDiscount() {
         return productDiscount;
