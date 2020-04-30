@@ -30,11 +30,6 @@ public class HibernateRepository implements CRUD {
     }
 
     @Override
-    public void addProductToCart(Product product, ShoppingCart cart) {
-        sessionFactory.getCurrentSession().save().);
-    }
-
-    @Override
     public void insertShoppingCart(ShoppingCart cart) {
         sessionFactory.getCurrentSession().save(cart);
     }
@@ -60,6 +55,11 @@ public class HibernateRepository implements CRUD {
     }
 
     @Override
+    public void addProductToCart(Product product, ShoppingCart cart) {
+        getProductByID(product).getCartList().add(getShoppingCartByID(cart));
+    }
+
+    @Override
     public void deleteProductByID(Product product) {
 
     }
@@ -81,7 +81,7 @@ public class HibernateRepository implements CRUD {
 
     @Override
     public List<Product> getShoppingCartProductList(ShoppingCart cart) {
-        return null;
+        return cart.getProductList();
     }
 
     @Override

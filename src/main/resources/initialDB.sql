@@ -36,43 +36,45 @@ CREATE TABLE IF NOT EXISTS shopping_carts
 
 CREATE TABLE IF NOT EXISTS shopping_cart_product_list
 (
+    `list_id`          BIGINT NOT NULL AUTO_INCREMENT,
     `product_id`       BIGINT NOT NULL,
     `shopping_cart_id` BIGINT NOT NULL,
-    PRIMARY KEY (`product_id`, `shopping_cart_id`),
+    PRIMARY KEY (`list_id`),
     KEY `shopping_cart_idx` (`shopping_cart_id`),
     KEY `product_idx` (`product_id`),
     CONSTRAINT `product` FOREIGN KEY (`product_id`) REFERENCES `shopping_list_db`.products (`product_id`),
     CONSTRAINT `shopping_cart` FOREIGN KEY (`shopping_cart_id`) REFERENCES `shopping_list_db`.shopping_carts (`cart_id`)
-) ENGINE = InnoDB;
+) ENGINE = InnoDB
+  AUTO_INCREMENT = 1;
 
-insert into `shopping_list_db`.`categories` (`category_id`, `category_name`)
-values (1, 'FRUITS');
-insert into `shopping_list_db`.`categories` (`category_id`, `category_name`)
-values (2, 'MEAT');
-insert into `shopping_list_db`.`categories` (`category_id`, `category_name`)
-values (3, 'VEGETABLES');
-insert into `shopping_list_db`.`categories` (`category_id`, `category_name`)
-values (4, 'FISH');
+insert into `shopping_list_db`.`categories` (`category_name`)
+values ('FRUITS');
+insert into `shopping_list_db`.`categories` (`category_name`)
+values ('MEAT');
+insert into `shopping_list_db`.`categories` (`category_name`)
+values ('VEGETABLES');
+insert into `shopping_list_db`.`categories` (`category_name`)
+values ('FISH');
 
-insert into `shopping_list_db`.`products` (`product_id`, `product_name`, `product_price`, `product_discount`,
+insert into `shopping_list_db`.`products` (`product_name`, `product_price`, `product_discount`,
                                            `product_description`, `product_category`)
-values (1, 'orange', 2.69, 0, 'AU', 1);
-insert into `shopping_list_db`.`products` (`product_id`, `product_name`, `product_price`, `product_discount`,
+values ('orange', 2.69, 0, 'AU', 1);
+insert into `shopping_list_db`.`products` (`product_name`, `product_price`, `product_discount`,
                                            `product_description`, `product_category`)
-values (2, 'lamb', 18.50, 0, 'IRL', 2);
-insert into `shopping_list_db`.`products` (`product_id`, `product_name`, `product_price`, `product_discount`,
+values ('lamb', 18.50, 0, 'IRL', 2);
+insert into `shopping_list_db`.`products` (`product_name`, `product_price`, `product_discount`,
                                            `product_description`, `product_category`)
-values (3, 'tomato', 2.5, 0, 'LV', 3);
-insert into `shopping_list_db`.`products` (`product_id`, `product_name`, `product_price`, `product_discount`,
+values ('tomato', 2.5, 0, 'LV', 3);
+insert into `shopping_list_db`.`products` (`product_name`, `product_price`, `product_discount`,
                                            `product_description`, `product_category`)
-values (4, 'halibut', 8.90, 0, 'NOR', 4);
+values ('halibut', 8.90, 0, 'NOR', 4);
 
-INSERT INTO `shopping_list_db`.`shopping_carts` (`cart_id`, `cart_name`)
-VALUES ('1', 'vegan');
-INSERT INTO `shopping_list_db`.`shopping_carts` (`cart_id`, `cart_name`)
-VALUES ('2', 'normal');
-INSERT INTO `shopping_list_db`.`shopping_carts` (`cart_id`, `cart_name`)
-VALUES ('3', 'hard');
+INSERT INTO `shopping_list_db`.`shopping_carts` (`cart_name`)
+VALUES ('vegan');
+INSERT INTO `shopping_list_db`.`shopping_carts` (`cart_name`)
+VALUES ('normal');
+INSERT INTO `shopping_list_db`.`shopping_carts` (`cart_name`)
+VALUES ('hard');
 
 INSERT INTO `shopping_list_db`.`shopping_cart_product_list` (`product_id`, `shopping_cart_id`)
 values (1, 1);
