@@ -14,9 +14,9 @@ public class ShoppingCartProductList {
     @Column(name = "product_id")
     private Long productId;
 
-    @Id
-    @Column(name = "shopping_cart_id")
-    private String shoppingCartId;
+//    @Id
+@Column(name = "shopping_cart_id")
+private Long shoppingCartId;
 
     @Override
     public String toString() {

@@ -28,9 +28,9 @@ public class Product {
     private String productDescription;
 
     @Column(name = "product_category")
-    private int productCategory;
+    private Long productCategory;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "product_id")
     private Set<ShoppingCartProductList> productLists;
 

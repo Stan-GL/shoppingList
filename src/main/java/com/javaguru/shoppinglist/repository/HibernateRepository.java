@@ -15,12 +15,12 @@ import java.util.List;
 @Repository
 @Profile("hibernate")
 @Transactional
-public class HibernateProductRepository implements CRUD {
+public class HibernateRepository implements CRUD {
 
     private final SessionFactory sessionFactory;
 
     @Autowired
-    public HibernateProductRepository(SessionFactory sessionFactory) {
+    public HibernateRepository(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
@@ -31,7 +31,7 @@ public class HibernateProductRepository implements CRUD {
 
     @Override
     public void addProductToCart(Product product, ShoppingCart cart) {
-
+        sessionFactory.getCurrentSession().save().);
     }
 
     @Override
@@ -42,23 +42,21 @@ public class HibernateProductRepository implements CRUD {
     @Override
     public Product getProductByID(Product product) {
         return (Product) sessionFactory.getCurrentSession().createCriteria(Product.class)
-                .add(Restrictions.eq("product_id", product.getProductId()))
+                .add(Restrictions.eq("productId", product.getProductId()))
                 .uniqueResult();
     }
 
     @Override
     public boolean ifProductExistsByName(Product product) {
-        String query = " Select " +
-                " IF count(*) > 0, 1, 0 " +
-                " from products where product_name '" + product.getProductName() + "'";
-        return (boolean) sessionFactory.getCurrentSession().createQuery(query)
-                .setMaxResults(1)
-                .uniqueResult();
+        String query = "SELECT p FROM Product p WHERE p.productName='" + product.getProductName() + "'";
+        return sessionFactory.getCurrentSession().createQuery(query).list().isEmpty();
     }
 
     @Override
     public ShoppingCart getShoppingCartByID(ShoppingCart cart) {
-        return null;
+        return (ShoppingCart) sessionFactory.getCurrentSession().createCriteria(ShoppingCart.class)
+                .add(Restrictions.eq("cartId", cart.getCartId()))
+                .uniqueResult();
     }
 
     @Override
@@ -68,7 +66,7 @@ public class HibernateProductRepository implements CRUD {
 
     @Override
     public void deleteShoppingCartByID(ShoppingCart cart) {
-
+        sessionFactory.getCurrentSession().delete(cart);
     }
 
     @Override

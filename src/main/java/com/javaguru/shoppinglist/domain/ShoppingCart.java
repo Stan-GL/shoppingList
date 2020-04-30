@@ -43,22 +43,19 @@ public class ShoppingCart {
         if (o == null || getClass() != o.getClass()) return false;
         ShoppingCart that = (ShoppingCart) o;
         return Objects.equals(cartId, that.cartId) &&
-                Objects.equals(cartName, that.cartName) &&
-                Objects.equals(productLists, that.productLists);
+                Objects.equals(cartName, that.cartName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(cartId, cartName, productLists);
+        return Objects.hash(cartId, cartName);
     }
 
     @Override
     public String toString() {
         return "ShoppingCart{" +
                 "id=" + cartId +
-                ", name='" + cartName + '\'' +
-                ", productList=" + productLists +
-                '}';
+                ", name='" + cartName + "}";
     }
 
 }
