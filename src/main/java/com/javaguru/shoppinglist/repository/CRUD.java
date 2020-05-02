@@ -8,21 +8,21 @@ import java.util.List;
 
 public interface CRUD {
 
-    void insertProductInRepository(Product product);
+    void insertInRepository(Product product);
 
     void addProductToCart(Product product, ShoppingCart cart);
 
-    void insertShoppingCart(ShoppingCart cart);
+    void insert(ShoppingCart cart);
 
-    Product getProductByID(Product product);
+    Product getByID(Product product);
 
     boolean ifProductExistsByName(Product product);
 
-    ShoppingCart getShoppingCartByID(ShoppingCart cart);
+    ShoppingCart getByID(ShoppingCart cart);
 
     void deleteProductByID(Product product);
 
-    void deleteShoppingCartByID(ShoppingCart cart);
+    void deleteByID(ShoppingCart cart);
 
     Long getProductIdSequence();
 

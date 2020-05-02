@@ -21,17 +21,17 @@ public class ProductService implements RepositoryItemService<Product> {
     }
 
     @Override
-    public void insertItem(Product product) {
-        mainRepository.insertProductInRepository(product);
+    public void insert(Product product) {
+        mainRepository.insertInRepository(product);
     }
 
     @Override
-    public Product getItemByID(Product product) {
-        return mainRepository.getProductByID(product);
+    public Product getByID(Product product) {
+        return mainRepository.getByID(product);
     }
 
     @Override
-    public void deleteItem(Product product) {
+    public void delete(Product product) {
         //todo
     }
 
@@ -49,7 +49,7 @@ public class ProductService implements RepositoryItemService<Product> {
     }
 
     @Override
-    public BigDecimal getShoppingCartTotalValue(ShoppingCart cart) {
+    public BigDecimal getTotalValue(ShoppingCart cart) {
         return null;
     }
 

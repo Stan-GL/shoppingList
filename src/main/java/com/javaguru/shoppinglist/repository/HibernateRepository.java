@@ -25,17 +25,17 @@ public class HibernateRepository implements CRUD {
     }
 
     @Override
-    public void insertProductInRepository(Product product) {
+    public void insertInRepository(Product product) {
         sessionFactory.getCurrentSession().save(product);
     }
 
     @Override
-    public void insertShoppingCart(ShoppingCart cart) {
+    public void insert(ShoppingCart cart) {
         sessionFactory.getCurrentSession().save(cart);
     }
 
     @Override
-    public Product getProductByID(Product product) {
+    public Product getByID(Product product) {
         return (Product) sessionFactory.getCurrentSession().createCriteria(Product.class)
                 .add(Restrictions.eq("productId", product.getProductId()))
                 .uniqueResult();
@@ -48,7 +48,7 @@ public class HibernateRepository implements CRUD {
     }
 
     @Override
-    public ShoppingCart getShoppingCartByID(ShoppingCart cart) {
+    public ShoppingCart getByID(ShoppingCart cart) {
         return (ShoppingCart) sessionFactory.getCurrentSession().createCriteria(ShoppingCart.class)
                 .add(Restrictions.eq("cartId", cart.getCartId()))
                 .uniqueResult();
@@ -56,16 +56,15 @@ public class HibernateRepository implements CRUD {
 
     @Override
     public void addProductToCart(Product product, ShoppingCart cart) {
-        getProductByID(product).getCartList().add(getShoppingCartByID(cart));
+        getByID(product).getCartList().add(getByID(cart));
     }
 
     @Override
     public void deleteProductByID(Product product) {
-
     }
 
     @Override
-    public void deleteShoppingCartByID(ShoppingCart cart) {
+    public void deleteByID(ShoppingCart cart) {
         sessionFactory.getCurrentSession().delete(cart);
     }
 

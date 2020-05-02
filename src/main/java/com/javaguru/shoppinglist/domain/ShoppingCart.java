@@ -20,6 +20,14 @@ public class ShoppingCart {
     @ManyToMany(mappedBy = "cartList", fetch = FetchType.EAGER)
     private List<Product> productList;
 
+    public ShoppingCart(Long id) {
+        this.cartId = id;
+    }
+
+    public ShoppingCart() {
+
+    }
+
 //    @OneToMany(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "shopping_cart_id")
 //    private Set<ShoppingCartProductList> productLists;

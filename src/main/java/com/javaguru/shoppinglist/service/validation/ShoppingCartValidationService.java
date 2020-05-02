@@ -8,18 +8,18 @@ import org.springframework.stereotype.Component;
 public class ShoppingCartValidationService implements ValidationService<ShoppingCart> {
 
     @Override
-    public boolean validateItemName(ShoppingCart cart) {
+    public boolean validateName(ShoppingCart cart) {
         ShoppingCartNameValidationRule validation = new ShoppingCartNameValidationRule();
         return validation.validate(cart);
     }
 
     @Override
-    public boolean validateItemPrice(ShoppingCart object) {
+    public boolean validatePrice(ShoppingCart object) {
         return false;
     }
 
     @Override
-    public boolean validateItemDiscount(ShoppingCart object) {
+    public boolean validateDiscount(ShoppingCart object) {
         return false;
     }
 

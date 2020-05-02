@@ -39,6 +39,14 @@ public class Product {
             inverseJoinColumns = {@JoinColumn(name = "shopping_cart_id")})
     private List<ShoppingCart> cartList;
 
+    public Product(Long id) {
+        this.productId = id;
+    }
+
+    public Product() {
+
+    }
+
 //    @OneToMany(fetch = FetchType.EAGER)
 //    @JoinColumn(name = "product_id")
 //    private Set<ShoppingCartProductList> productLists;
