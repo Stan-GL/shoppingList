@@ -14,14 +14,14 @@ public class ProductPriceValidationRuleTest {
 
     @Test
     public void testNegativeProductPriceValidationRule() {
-        product.setPrice(new BigDecimal("0"));
+        product.setProductPrice(new BigDecimal("0"));
         boolean result = victim.validate(product);
         assertEquals(false, result);
     }
 
     @Test
     public void testPositiveProductPriceValidationRule() {
-        product.setPrice(new BigDecimal("1000"));
+        product.setProductPrice(new BigDecimal("1000"));
         boolean result = victim.validate(product);
         assertEquals(true, result);
     }

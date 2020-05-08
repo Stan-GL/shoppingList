@@ -5,7 +5,8 @@ import org.junit.Test;
 
 import java.math.BigDecimal;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class ProductDiscountRangeValidationRuleTest {
 
@@ -14,15 +15,15 @@ public class ProductDiscountRangeValidationRuleTest {
 
     @Test
     public void testNegativeCaseProductDiscountRangeValidationRule() {
-        product.setDiscount(new BigDecimal(105));
+        product.setProductDiscount(new BigDecimal(105));
         boolean result = victim.validate(product);
-        assertEquals(false, result);
+        assertFalse(result);
     }
 
     @Test
     public void testPositiveCaseProductDiscountRangeValidationRule() {
-        product.setDiscount(new BigDecimal(5));
+        product.setProductDiscount(new BigDecimal(5));
         boolean result = victim.validate(product);
-        assertEquals(true, result);
+        assertTrue(result);
     }
 }

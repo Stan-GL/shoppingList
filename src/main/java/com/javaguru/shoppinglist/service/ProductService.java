@@ -1,24 +1,28 @@
 package com.javaguru.shoppinglist.service;
 
 import com.javaguru.shoppinglist.domain.Product;
+import com.javaguru.shoppinglist.domain.ShoppingCart;
 import com.javaguru.shoppinglist.repository.CRUD;
-import com.javaguru.shoppinglist.repository.ShoppingCart;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
-import java.util.Map;
+import java.util.List;
 
 
+@Component
 public class ProductService implements RepositoryItemService<Product> {
 
-    private CRUD mainRepository;
+    private final CRUD mainRepository;
 
+    @Autowired
     public ProductService(CRUD mainRepository) {
         this.mainRepository = mainRepository;
     }
 
     @Override
     public void insertItem(Product product) {
-        mainRepository.insertProduct(product);
+        mainRepository.insertProductInRepository(product);
     }
 
     @Override
@@ -35,12 +39,12 @@ public class ProductService implements RepositoryItemService<Product> {
         return mainRepository.getProductIdSequence();
     }
 
-    public void addProductInCart(Product product, ShoppingCart cart) {
+    public void addProduct(Product product, ShoppingCart cart) {
         //todo
     }
 
     @Override
-    public Map getShoppingCartProductList(ShoppingCart cart) {
+    public List<Product> getShoppingCartProductList(ShoppingCart cart) {
         return null;
     }
 

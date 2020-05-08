@@ -1,6 +1,6 @@
 package com.javaguru.shoppinglist.service.validation.rules;
 
-import com.javaguru.shoppinglist.repository.ShoppingCart;
+import com.javaguru.shoppinglist.domain.ShoppingCart;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -12,21 +12,21 @@ public class ShoppingCartNameValidationRuleTest {
 
     @Test
     public void testNegativeShoppingCartNameValidationRule() {
-        cart.setName(" ");
+        cart.setCartName(" ");
         Boolean result = victim.validate(cart);
         assertEquals(false, result);
     }
 
     @Test
     public void test2NegativeShoppingCartNameValidationRule() {
-        cart.setName("");
+        cart.setCartName("");
         Boolean result = victim.validate(cart);
         assertEquals(false, result);
     }
 
     @Test
     public void testNPositiveShoppingCartNameValidationRule() {
-        cart.setName("  1");
+        cart.setCartName("  1");
         Boolean result = victim.validate(cart);
         assertEquals(true, result);
     }

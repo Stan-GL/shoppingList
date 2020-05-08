@@ -18,19 +18,19 @@ public class ProductDiscountOnPriceValidationRuleTest {
 
     @Test
     public void testNegativeCaseValidateDiscountDependencyOnPrice() {
-        product.setPrice(new BigDecimal("10"));
-        product.setDiscount(new BigDecimal("10"));
+        product.setProductPrice(new BigDecimal("10"));
+        product.setProductDiscount(new BigDecimal("10"));
         victim.validate(product);
-        BigDecimal result = product.getDiscount();
+        BigDecimal result = product.getProductDiscount();
         assertEquals(new BigDecimal("0"), result);
     }
 
     @Test
     public void testPositiveCaseValidateDiscountDependencyOnPrice() {
-        product.setPrice(new BigDecimal("20"));
-        product.setDiscount(new BigDecimal("20"));
+        product.setProductPrice(new BigDecimal("20"));
+        product.setProductDiscount(new BigDecimal("20"));
         victim.validate(product);
-        BigDecimal result = product.getDiscount();
+        BigDecimal result = product.getProductDiscount();
         assertEquals(new BigDecimal("20"), result);
     }
 

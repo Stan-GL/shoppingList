@@ -1,35 +1,43 @@
 package com.javaguru.shoppinglist.service.validation;
 
 import com.javaguru.shoppinglist.domain.Product;
-import com.javaguru.shoppinglist.service.validation.rules.*;
+import com.javaguru.shoppinglist.service.validation.rules.ValidationRules;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
-import java.util.Map;
-
+@Component
 public class ProductValidationService implements ValidationService<Product> {
 
-    private Map<Long, Product> productRepository;
+    private final ValidationRules name;
+    private final ValidationRules priceDependency;
+    private final ValidationRules discountRange;
+    private final ValidationRules price;
 
-    public ProductValidationService(Map<Long, Product> productRepository) {
-        this.productRepository = productRepository;
+    @Autowired
+    public ProductValidationService(@Qualifier("nameValidation") ValidationRules nameValidation,
+                                    @Qualifier("discountOnPriceValidation") ValidationRules discountOnPriceValidation,
+                                    @Qualifier("discountRangeValidation") ValidationRules discountRangeValidation,
+                                    @Qualifier("priceValidation") ValidationRules priceValidation) {
+        this.name = nameValidation;
+        this.priceDependency = discountOnPriceValidation;
+        this.discountRange = discountRangeValidation;
+        this.price = priceValidation;
     }
 
     @Override
     public boolean validateItemName(Product product) {
-        ValidationRules<Product> itemName = new ProductNameValidationRule(productRepository);
-        return (itemName.validate(product));
+        return (name.validate(product));
     }
 
     @Override
     public boolean validateItemPrice(Product product) {
-        ValidationRules<Product> itemPrice = new ProductPriceValidationRule();
-        return itemPrice.validate(product);
+        return price.validate(product);
     }
 
     @Override
     public boolean validateItemDiscount(Product product) {
-        ValidationRules<Product> itemDiscountRange = new ProductDiscountRangeValidationRule();
-        ValidationRules<Product> itemDiscountPriceDependency = new ProductDiscountOnPriceValidationRule();
-        return (itemDiscountRange.validate(product) && itemDiscountPriceDependency.validate(product));
+        return (discountRange.validate(product) && priceDependency.validate(product));
     }
 
 

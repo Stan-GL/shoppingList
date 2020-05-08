@@ -2,10 +2,10 @@ package com.javaguru.shoppinglist.service;
 
 
 import com.javaguru.shoppinglist.domain.Product;
-import com.javaguru.shoppinglist.repository.ShoppingCart;
+import com.javaguru.shoppinglist.domain.ShoppingCart;
 
 import java.math.BigDecimal;
-import java.util.Map;
+import java.util.List;
 
 public interface RepositoryItemService<T> {
 
@@ -17,9 +17,9 @@ public interface RepositoryItemService<T> {
 
     Long getLastAddedItemID();
 
-    void addProductInCart(Product product, ShoppingCart cart);
+    void addProduct(Product product, ShoppingCart cart);
 
-    Map getShoppingCartProductList(ShoppingCart cart);
+    List<Product> getShoppingCartProductList(ShoppingCart cart);
 
     BigDecimal getShoppingCartTotalValue(ShoppingCart cart);
 

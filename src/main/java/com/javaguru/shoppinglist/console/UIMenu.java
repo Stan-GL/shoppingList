@@ -3,19 +3,22 @@ package com.javaguru.shoppinglist.console;
 import com.javaguru.shoppinglist.console.input.ExitException;
 import com.javaguru.shoppinglist.console.service.UIService;
 import com.javaguru.shoppinglist.domain.Product;
-import com.javaguru.shoppinglist.repository.ShoppingCart;
+import com.javaguru.shoppinglist.domain.ShoppingCart;
 import com.javaguru.shoppinglist.service.RepositoryItemService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-import java.math.BigDecimal;
 import java.util.Scanner;
 
+@Component
 public class UIMenu {
 
-    private RepositoryItemService<Product> productService;
-    private RepositoryItemService<ShoppingCart> shoppingCartService;
-    private UIService<Product> productUIService;
-    private UIService<ShoppingCart> shoppingCartUIService;
+    private final RepositoryItemService<Product> productService;
+    private final RepositoryItemService<ShoppingCart> shoppingCartService;
+    private final UIService<Product> productUIService;
+    private final UIService<ShoppingCart> shoppingCartUIService;
 
+    @Autowired
     public UIMenu(RepositoryItemService<Product> productService, RepositoryItemService<ShoppingCart> shoppingCartService,
                   UIService<Product> productUIService, UIService<ShoppingCart> shoppingCartUIService) {
 
@@ -67,7 +70,8 @@ public class UIMenu {
                                         isOK = false;
                                 }
                             } catch (Exception e) {
-                                System.out.println("Wrong value!");
+                                System.out.println(e.getMessage());
+//                                System.out.println("Wrong value!");
                             }
                         }
                         break;
@@ -75,12 +79,14 @@ public class UIMenu {
                         return;
                 }
             } catch (Exception e) {
-                System.out.println("Wrong value!");
+                System.out.println(e.getMessage());
+//                System.out.println("Wrong value!");
             }
         }
     }
 
     private void printMainMenu() {
+        System.out.println();
         System.out.println("1. Create product in repository");
         System.out.println("2. Find product, ID:");
         System.out.println("3. Operations with shopping cart");
@@ -90,9 +96,7 @@ public class UIMenu {
 
     private void createProductInRepository() {
         try {
-            productUIService.insert();
-            Long id = productService.getLastAddedItemID();
-            System.out.println("Product created with ID: " + id);
+            System.out.println("New product was successfully added with ID = " + productUIService.insert().getProductId());
         } catch (ExitException e) {
             System.out.println(e.getMessage());
         }
@@ -116,21 +120,20 @@ public class UIMenu {
     }
 
     private void printShoppingCartMenu() {
+        System.out.println();
         System.out.println("1. Create a new cart");
         System.out.println("2. Find cart, ID:");
         System.out.println("3. Delete cart, ID:");
-        System.out.println("4. Add product to cart. Cart's ID:");
-        System.out.println("5. Get list of products in cart. Cart's ID: ");
-        System.out.println("6. Get total value of cart. Cart's ID: ");
+        System.out.println("4. Add product to cart. Cart ID:");
+        System.out.println("5. Get list of products in cart. Cart ID: ");
+        System.out.println("6. Get total value of cart. Cart ID: ");
         System.out.println("7. Back to main menu. Or type 'exit' to cancel current operation.");
         System.out.println("=================================================================");
     }
 
     private void createNewCart() {
         try {
-            shoppingCartUIService.insert();
-            Long id = shoppingCartService.getLastAddedItemID();
-            System.out.println("Shopping cart created with ID: " + id);
+            System.out.println("Shopping cart created with ID: " + shoppingCartUIService.insert().getCartId());
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -187,7 +190,7 @@ public class UIMenu {
         ShoppingCart cart = findCart();
         if (cart != null) {
             try {
-                shoppingCartUIService.getProductList(cart);
+                System.out.println("Products in cart: " + shoppingCartUIService.getProductList(cart));
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
@@ -196,11 +199,9 @@ public class UIMenu {
 
     private void getTotalValueOfCart() {
         ShoppingCart cart = findCart();
-        BigDecimal cartValue;
         if (cart != null) {
             try {
-                cartValue = shoppingCartUIService.getCartValue(cart);
-                System.out.println("Cart total value: " + cartValue);
+                System.out.print("Cart total value: " + shoppingCartUIService.getCartValue(cart));
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }

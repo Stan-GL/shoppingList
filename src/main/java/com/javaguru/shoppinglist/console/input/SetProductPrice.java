@@ -11,7 +11,7 @@ public class SetProductPrice implements CatchUserInput {
         System.out.println("Enter product price: ");
         String command = catchUserInput();
         try {
-            product.setPrice(new BigDecimal(command));
+            product.setProductPrice(new BigDecimal(command));
         } catch (Exception e) {
             System.out.println("Wrong input format, use only digits!");
         }

@@ -6,7 +6,7 @@ public class SetProductName implements CatchUserInput {
 
     public void setProductName(Product product) throws ExitException {
         System.out.println("Enter product name: ");
-        product.setName(catchUserInput());
+        product.setProductName(catchUserInput());
     }
 
 }

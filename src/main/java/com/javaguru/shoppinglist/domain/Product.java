@@ -1,36 +1,61 @@
 package com.javaguru.shoppinglist.domain;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Objects;
+import java.util.Set;
+
+@Entity
+@Table(name = "products")
 
 public class Product {
 
-    private Long id;
-    private String name;
-    private BigDecimal price;
-    private BigDecimal discount;
-    private String description;
-    private Category category;
+    @Id
+    @Column(name = "product_id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long productId;
 
+    @Column(name = "product_name")
+    private String productName;
 
-    public void setDiscount(BigDecimal discount) {
-        this.discount = discount;
+    @Column(name = "product_price")
+    private BigDecimal productPrice;
+
+    @Column(name = "product_discount")
+    private BigDecimal productDiscount;
+
+    @Column(name = "product_description")
+    private String productDescription;
+
+    @Column(name = "product_category")
+    private int productCategory;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id")
+    private Set<ShoppingCartProductList> productLists;
+
+    public Set<ShoppingCartProductList> getProductLists() {
+        return productLists;
+    }
+
+    public void setProductDiscount(BigDecimal discount) {
+        this.productDiscount = discount;
     }
 
     @Override
     public String toString() {
         return "Product{ " +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", price=" + price +
-                ", discount=" + discount +
-                ", description='" + description + '\'' +
-                ", category=" + category +
+                "id=" + productId +
+                ", name='" + productName + '\'' +
+                ", price=" + productPrice +
+                ", discount=" + productDiscount +
+                ", description='" + productDescription + '\'' +
+                ", category=" + productCategory +
                 '}';
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setProductDescription(String description) {
+        this.productDescription = description;
     }
 
     @Override
@@ -38,49 +63,49 @@ public class Product {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
-        return Objects.equals(id, product.id) &&
-                Objects.equals(name, product.name) &&
-                Objects.equals(price, product.price) &&
-                Objects.equals(discount, product.discount) &&
-                Objects.equals(description, product.description) &&
-                category == product.category;
+        return Objects.equals(productId, product.productId) &&
+                Objects.equals(productName, product.productName) &&
+                Objects.equals(productPrice, product.productPrice) &&
+                Objects.equals(productDiscount, product.productDiscount) &&
+                Objects.equals(productDescription, product.productDescription) &&
+                productCategory == product.productCategory;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, price, discount, description, category);
+        return Objects.hash(productId, productName, productPrice, productDiscount, productDescription, productCategory);
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+//    public void setProductCategory(Category category) {
+//        this.productCategory = category;
+//    }
+
+    public BigDecimal getProductDiscount() {
+        return productDiscount;
     }
 
-    public BigDecimal getDiscount() {
-        return discount;
+    public Long getProductId() {
+        return productId;
     }
 
-    public Long getId() {
-        return id;
+    public void setProductId(Long productId) {
+        this.productId = productId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public String getProductName() {
+        return productName;
     }
 
-    public String getName() {
-        return name;
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public BigDecimal getProductPrice() {
+        return productPrice;
     }
 
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
+    public void setProductPrice(BigDecimal price) {
+        this.productPrice = price;
     }
 
 }

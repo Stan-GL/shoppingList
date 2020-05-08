@@ -2,29 +2,28 @@ package com.javaguru.shoppinglist.service.validation;
 
 import com.javaguru.shoppinglist.domain.Product;
 import com.javaguru.shoppinglist.service.validation.rules.ProductNameValidationRule;
-import com.javaguru.shoppinglist.service.validation.rules.ValidationRules;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.util.Map;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ProductValidationServiceTest {
 
+    private Product product = new Product();
 
-    @Mock
-    private Map<Long, Product> productRepository;
+    ProductNameValidationRule mock = mock(ProductNameValidationRule.class);
 
-    @InjectMocks
-    private ProductValidationService victim;
+//    private ProductValidationService victim;
 
     @Test
     public void testNegativeValidateItemName() {
-        ValidationRules itemName = new ProductNameValidationRule(productRepository);
+//        when(mock.validateItemName(product)).thenReturn(false);
 
+        verify(mock).validate(product);
+//        assertFalse(result);
     }
 
     @Test
