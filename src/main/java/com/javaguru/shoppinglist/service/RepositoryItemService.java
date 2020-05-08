@@ -9,11 +9,11 @@ import java.util.List;
 
 public interface RepositoryItemService<T> {
 
-    void insertItem(T object);
+    void insert(T object);
 
-    T getItemByID(T object);
+    T getByID(T object);
 
-    void deleteItem(T object);
+    void delete(T object);
 
     Long getLastAddedItemID();
 
@@ -21,6 +21,6 @@ public interface RepositoryItemService<T> {
 
     List<Product> getShoppingCartProductList(ShoppingCart cart);
 
-    BigDecimal getShoppingCartTotalValue(ShoppingCart cart);
+    BigDecimal getTotalValue(ShoppingCart cart);
 
 }

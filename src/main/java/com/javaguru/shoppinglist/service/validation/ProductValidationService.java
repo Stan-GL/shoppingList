@@ -26,17 +26,17 @@ public class ProductValidationService implements ValidationService<Product> {
     }
 
     @Override
-    public boolean validateItemName(Product product) {
+    public boolean validateName(Product product) {
         return (name.validate(product));
     }
 
     @Override
-    public boolean validateItemPrice(Product product) {
+    public boolean validatePrice(Product product) {
         return price.validate(product);
     }
 
     @Override
-    public boolean validateItemDiscount(Product product) {
+    public boolean validateDiscount(Product product) {
         return (discountRange.validate(product) && priceDependency.validate(product));
     }
 

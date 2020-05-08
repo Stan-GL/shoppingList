@@ -11,12 +11,13 @@ public class Category {
 
     @Id
     @Column(name = "category_id")
-    private int categoryId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long categoryId;
 
     @Column(name = "category_name")
     private String categoryName;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "product_category")
     private Set<Product> products;
 

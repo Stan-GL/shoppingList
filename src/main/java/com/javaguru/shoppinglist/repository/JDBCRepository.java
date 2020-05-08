@@ -27,7 +27,7 @@ public class JDBCRepository implements CRUD {
     }
 
     @Override
-    public void insertProductInRepository(Product product) {
+    public void insertInRepository(Product product) {
         String query = "Insert into products (product_name, product_price, product_discount) values (?,?,?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
@@ -54,7 +54,7 @@ public class JDBCRepository implements CRUD {
     }
 
     @Override
-    public void insertShoppingCart(ShoppingCart cart) {
+    public void insert(ShoppingCart cart) {
         String query = "Insert into shopping_carts (cart_name) values (?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
@@ -67,7 +67,7 @@ public class JDBCRepository implements CRUD {
     }
 
     @Override
-    public Product getProductByID(Product product) {
+    public Product getByID(Product product) {
         String query = " Select * from products where product_id = ?";
         List<Product> products = jdbcTemplate.query(query, new BeanPropertyRowMapper<>(Product.class), product.getProductId());
         if (products.isEmpty())
@@ -76,7 +76,7 @@ public class JDBCRepository implements CRUD {
     }
 
     @Override
-    public ShoppingCart getShoppingCartByID(ShoppingCart cart) {
+    public ShoppingCart getByID(ShoppingCart cart) {
         String query = " Select * from shopping_carts where cart_id = ?";
         List<ShoppingCart> carts = jdbcTemplate.query(query, new BeanPropertyRowMapper<>(ShoppingCart.class), cart.getCartId());
         if (carts.isEmpty())
@@ -97,7 +97,7 @@ public class JDBCRepository implements CRUD {
     }
 
     @Override
-    public void deleteShoppingCartByID(ShoppingCart cart) {
+    public void deleteByID(ShoppingCart cart) {
         String query = "Delete from shopping_carts where cart_id = ?";
         jdbcTemplate.update(connection -> {
             PreparedStatement preparedStatement = connection.prepareStatement(query);

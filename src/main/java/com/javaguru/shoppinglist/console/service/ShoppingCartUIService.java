@@ -30,7 +30,7 @@ public class ShoppingCartUIService implements UIService<ShoppingCart> {
     @Override
     public ShoppingCart insert() throws ExitException {
         ShoppingCart cart = create();
-        shoppingCartService.insertItem(cart);
+        shoppingCartService.insert(cart);
         return cart;
     }
 
@@ -46,7 +46,7 @@ public class ShoppingCartUIService implements UIService<ShoppingCart> {
         boolean isOK = false;
         while (!isOK) {
             name.setShoppingCartName(cart);
-            isOK = shoppingCartValidationRules.validateItemName(cart);
+            isOK = shoppingCartValidationRules.validateName(cart);
         }
     }
 
@@ -60,12 +60,12 @@ public class ShoppingCartUIService implements UIService<ShoppingCart> {
                 isOK = true;
             }
         }
-        return shoppingCartService.getItemByID(cart);
+        return shoppingCartService.getByID(cart);
     }
 
     @Override
     public void deleteByID(ShoppingCart cart) {
-        shoppingCartService.deleteItem(cart);
+        shoppingCartService.delete(cart);
     }
 
     @Override
@@ -80,7 +80,7 @@ public class ShoppingCartUIService implements UIService<ShoppingCart> {
 
     @Override
     public BigDecimal getCartValue(ShoppingCart cart) {
-        return shoppingCartService.getShoppingCartTotalValue(cart);
+        return shoppingCartService.getTotalValue(cart);
     }
 
 }

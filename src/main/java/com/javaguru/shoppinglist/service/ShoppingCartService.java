@@ -20,18 +20,18 @@ public class ShoppingCartService implements RepositoryItemService<ShoppingCart> 
     }
 
     @Override
-    public void insertItem(ShoppingCart cart) {
-        mainRepository.insertShoppingCart(cart);
+    public void insert(ShoppingCart cart) {
+        mainRepository.insert(cart);
     }
 
     @Override
-    public ShoppingCart getItemByID(ShoppingCart cart) {
-        return mainRepository.getShoppingCartByID(cart);
+    public ShoppingCart getByID(ShoppingCart cart) {
+        return mainRepository.getByID(cart);
     }
 
     @Override
-    public void deleteItem(ShoppingCart cart) {
-        mainRepository.deleteShoppingCartByID(cart);
+    public void delete(ShoppingCart cart) {
+        mainRepository.deleteByID(cart);
     }
 
     //    @Override
@@ -67,7 +67,7 @@ public class ShoppingCartService implements RepositoryItemService<ShoppingCart> 
 //    }
 
     @Override
-    public BigDecimal getShoppingCartTotalValue(ShoppingCart cart) {  //вариант для работы с внешней базой
+    public BigDecimal getTotalValue(ShoppingCart cart) {  //вариант для работы с внешней базой
         BigDecimal value = new BigDecimal("0");
         List<Product> productList = getShoppingCartProductList(cart);
         if (productList == null) {

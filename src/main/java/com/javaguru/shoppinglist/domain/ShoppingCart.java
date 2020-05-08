@@ -2,8 +2,8 @@ package com.javaguru.shoppinglist.domain;
 
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Table(name = "shopping_carts")
@@ -17,9 +17,29 @@ public class ShoppingCart {
     @Column(name = "cart_name")
     private String cartName;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "shopping_cart_id")
-    private Set<ShoppingCartProductList> productLists;
+    @ManyToMany(mappedBy = "cartList", fetch = FetchType.EAGER)
+    private List<Product> productList;
+
+    public ShoppingCart(Long id) {
+        this.cartId = id;
+    }
+
+    public ShoppingCart() {
+
+    }
+
+//    @OneToMany(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "shopping_cart_id")
+//    private Set<ShoppingCartProductList> productLists;
+
+
+    public List<Product> getProductList() {
+        return productList;
+    }
+
+    public void setProductList(List<Product> productList) {
+        this.productList = productList;
+    }
 
     public String getCartName() {
         return cartName;
@@ -43,22 +63,19 @@ public class ShoppingCart {
         if (o == null || getClass() != o.getClass()) return false;
         ShoppingCart that = (ShoppingCart) o;
         return Objects.equals(cartId, that.cartId) &&
-                Objects.equals(cartName, that.cartName) &&
-                Objects.equals(productLists, that.productLists);
+                Objects.equals(cartName, that.cartName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(cartId, cartName, productLists);
+        return Objects.hash(cartId, cartName);
     }
 
     @Override
     public String toString() {
         return "ShoppingCart{" +
                 "id=" + cartId +
-                ", name='" + cartName + '\'' +
-                ", productList=" + productLists +
-                '}';
+                ", name='" + cartName + "}";
     }
 
 }

@@ -19,7 +19,7 @@ public class InMemoryRepository implements CRUD {
     private Long cartIdSequence = 0L;
 
     @Override
-    public void insertProductInRepository(Product product) {
+    public void insertInRepository(Product product) {
         productIdSequence++;
         product.setProductId(productIdSequence);
         productRepository.put(productIdSequence, product);
@@ -31,14 +31,14 @@ public class InMemoryRepository implements CRUD {
     }
 
     @Override
-    public void insertShoppingCart(ShoppingCart cart) {
+    public void insert(ShoppingCart cart) {
         cartIdSequence++;
         cart.setCartId(cartIdSequence);
         shoppingCartRepository.put(cartIdSequence, cart);
     }
 
     @Override
-    public Product getProductByID(Product product) {
+    public Product getByID(Product product) {
         return productRepository.get(product.getProductId());
     }
 
@@ -48,7 +48,7 @@ public class InMemoryRepository implements CRUD {
     }
 
     @Override
-    public ShoppingCart getShoppingCartByID(ShoppingCart cart) {
+    public ShoppingCart getByID(ShoppingCart cart) {
         return shoppingCartRepository.get(cart.getCartId());
     }
 
@@ -58,7 +58,7 @@ public class InMemoryRepository implements CRUD {
     }
 
     @Override
-    public void deleteShoppingCartByID(ShoppingCart cart) {
+    public void deleteByID(ShoppingCart cart) {
         shoppingCartRepository.remove(cart.getCartId());
     }
 

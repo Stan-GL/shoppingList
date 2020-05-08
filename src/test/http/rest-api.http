@@ -1,0 +1,38 @@
+### Get product by ID
+GET http://localhost:8080/api/v1/products/4
+Accept: */*
+Cache-Control: no-cache
+
+### Send POST request with json body
+POST http://localhost:8080/api/v1/products
+Content-Type: application/json
+
+{
+  "productName": "test created status message",
+  "productPrice": 100,
+  "productDiscount": 5,
+  "productDescription": "UG",
+  "productCategory": 2
+}
+
+###
+
+### Get shopping cart by ID
+GET http://localhost:8080/api/v1/shoppingCarts/1
+Accept: */*
+Cache-Control: no-cache
+
+### Send POST request with json body
+POST http://localhost:8080/api/v1/shoppingCarts
+Content-Type: application/json
+
+{
+  "cartName": "testcart"
+}
+
+### Send DELETE request with cart ID
+DELETE http://localhost:8080/api/v1/shoppingCarts/4
+Accept: */*
+Cache-Control: no-cache
+
+###

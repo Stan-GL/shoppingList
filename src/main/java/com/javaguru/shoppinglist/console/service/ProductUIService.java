@@ -28,7 +28,7 @@ public class ProductUIService implements UIService<Product> {
     @Override
     public Product insert() throws ExitException {
         Product product = create();
-        productService.insertItem(product);
+        productService.insert(product);
         return product;
     }
 
@@ -51,7 +51,7 @@ public class ProductUIService implements UIService<Product> {
                 isOK = true;
             }
         }
-        return productService.getItemByID(product);
+        return productService.getByID(product);
     }
 
     private void validateAndSetName(Product product) throws ExitException {
@@ -59,7 +59,7 @@ public class ProductUIService implements UIService<Product> {
         boolean isOK = false;
         while (!isOK) {
             name.setProductName(product);
-            isOK = productValidationRules.validateItemName(product);
+            isOK = productValidationRules.validateName(product);
         }
     }
 
@@ -68,7 +68,7 @@ public class ProductUIService implements UIService<Product> {
         boolean isOK = false;
         while (!isOK) {
             price.setProductPrice(product);
-            isOK = productValidationRules.validateItemPrice(product);
+            isOK = productValidationRules.validatePrice(product);
         }
     }
 
@@ -77,7 +77,7 @@ public class ProductUIService implements UIService<Product> {
         boolean isOK = false;
         while (!isOK) {
             discount.setProductDiscount(product);
-            isOK = productValidationRules.validateItemDiscount(product);
+            isOK = productValidationRules.validateDiscount(product);
         }
     }
 

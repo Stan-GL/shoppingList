@@ -2,8 +2,8 @@ package com.javaguru.shoppinglist.domain;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Table(name = "products")
@@ -28,18 +28,55 @@ public class Product {
     private String productDescription;
 
     @Column(name = "product_category")
-    private int productCategory;
+    private Long productCategory;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id")
-    private Set<ShoppingCartProductList> productLists;
+    @ManyToMany(
+            cascade = {CascadeType.ALL},
+            fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "shopping_cart_product_list",
+            joinColumns = {@JoinColumn(name = "product_id")},
+            inverseJoinColumns = {@JoinColumn(name = "shopping_cart_id")})
+    private List<ShoppingCart> cartList;
 
-    public Set<ShoppingCartProductList> getProductLists() {
-        return productLists;
+    public Product(Long id) {
+        this.productId = id;
     }
+
+    public Product() {
+
+    }
+
+//    @OneToMany(fetch = FetchType.EAGER)
+//    @JoinColumn(name = "product_id")
+//    private Set<ShoppingCartProductList> productLists;
+
+//    public Set<ShoppingCartProductList> getProductLists() {
+//        return productLists;
+//    }
 
     public void setProductDiscount(BigDecimal discount) {
         this.productDiscount = discount;
+    }
+
+    public String getProductDescription() {
+        return productDescription;
+    }
+
+    public Long getProductCategory() {
+        return productCategory;
+    }
+
+    public void setProductCategory(Long productCategory) {
+        this.productCategory = productCategory;
+    }
+
+    public List<ShoppingCart> getCartList() {
+        return cartList;
+    }
+
+    public void setCartList(List<ShoppingCart> cartList) {
+        this.cartList = cartList;
     }
 
     @Override
@@ -107,5 +144,6 @@ public class Product {
     public void setProductPrice(BigDecimal price) {
         this.productPrice = price;
     }
+
 
 }
